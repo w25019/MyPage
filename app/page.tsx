@@ -2,52 +2,635 @@
 
 import { useEffect, useState } from "react";
 import {
-  ArrowRight, BookOpen, BriefcaseBusiness, Check, ChevronUp, Code2, Download,
-  ExternalLink, Github, GraduationCap, Heart, Layers3, Linkedin, Mail, MapPin,
-  Menu, Mountain, Rocket, Target, TrendingUp, Users, X,
+  ArrowRight,
+  BookOpen,
+  BriefcaseBusiness,
+  Check,
+  ChevronUp,
+  Code2,
+  Download,
+  ExternalLink,
+  Github,
+  GraduationCap,
+  Heart,
+  Mail,
+  MapPin,
+  Menu,
+  Mountain,
+  Rocket,
+  Target,
+  TrendingUp,
+  Users,
+  X,
 } from "lucide-react";
 
-const navItems = ["Home", "About", "Skills", "Projects", "Certificates", "Contact"];
+const navItems = [
+  "Home",
+  "About",
+  "Skills",
+  "Projects",
+  "Certificates",
+  "Contact",
+];
 
+// skills shown in the skills section
 const skills = [
-  ["Java", "☕", "java"], ["SQL", "SQL", "sql"], ["MySQL", "My", "mysql"],
-  ["HTML", "5", "html"], ["CSS", "3", "css"], ["JavaScript", "JS", "js"],
-  ["TypeScript", "TS", "ts"], ["React", "⚛", "react"], ["Next.js", "N", "next"],
-  ["PHP", "php", "php"], ["Git", "◆", "git"], ["GitHub", "◉", "github"],
-  ["Vercel", "▲", "vercel"], ["Spring Boot · Learning", "S", "spring"],
+  ["Java", "☕", "java"],
+  ["SQL", "SQL", "sql"],
+  ["MySQL", "My", "mysql"],
+  ["HTML", "5", "html"],
+  ["CSS", "3", "css"],
+  ["JavaScript", "JS", "js"],
+  ["TypeScript", "TS", "ts"],
+  ["React", "⚛", "react"],
+  ["Next.js", "N", "next"],
+  ["PHP", "php", "php"],
+  ["Git", "◆", "git"],
+  ["GitHub", "◉", "github"],
+  ["Vercel", "▲", "vercel"],
+  ["Spring Boot · Learning", "S", "spring"],
 ];
 
+// my project information
 const projects = [
-  { n:"01", title:"Dreaming", kind:"ECOMMERCE / FRONTEND", desc:"A responsive e-commerce style website with Home, About, Contact, Login, and product pages. Includes modal interactions and a localStorage-based login UI.", tags:["HTML","CSS","JavaScript"], image:"/projects/dreaming.png", liveUrl:"https://dreaming-portfolio.vercel.app/" },
-  { n:"02", title:"Java Banking System", kind:"CONSOLE APPLICATION", desc:"A console banking application supporting account creation, balance checks, deposits, withdrawals, and money transfers.", tags:["Java","OOP","BigDecimal","File / Console"], image:"/projects/java-bank.png", githubUrl:"https://github.com/w25019/Bank" },
-  { n:"03", title:"Mood City", kind:"INTERACTIVE WEB APP", desc:"A mood-based web application where the background, music, and messages change based on the user’s selected mood.", tags:["Next.js","TypeScript","React","JavaScript"], image:"/projects/mood-city.png", liveUrl:"https://mood-city.vercel.app/" },
-  { n:"04", title:"TT Online Konbini", kind:"JAPANESE E-COMMERCE", desc:"A Japanese online convenience store with product search, category browsing, deals, favorites, cart interactions, delivery details, and responsive shopping flows.", tags:["Next.js","React","TypeScript","E-commerce"], image:"/projects/tt-konbini.png", liveUrl:"https://tt-konbini.vercel.app/" },
+  {
+    n: "01",
+    title: "Dreaming",
+    kind: "ECOMMERCE / FRONTEND",
+    desc: "A responsive e-commerce style website with Home, About, Contact, Login, and product pages. Includes modal interactions and a localStorage-based login UI.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    image: "/projects/dreaming.png",
+    liveUrl: "https://dreaming-portfolio.vercel.app/",
+  },
+  {
+    n: "02",
+    title: "Java Banking System",
+    kind: "CONSOLE APPLICATION",
+    desc: "A console banking application supporting account creation, balance checks, deposits, withdrawals, and money transfers.",
+    tags: ["Java", "OOP", "BigDecimal", "File / Console"],
+    image: "/projects/java-bank.png",
+    githubUrl: "https://github.com/w25019/Bank",
+  },
+  {
+    n: "03",
+    title: "Mood City",
+    kind: "INTERACTIVE WEB APP",
+    desc: "A mood-based web application where the background, music, and messages change based on the user’s selected mood.",
+    tags: ["Next.js", "TypeScript", "React", "JavaScript"],
+    image: "/projects/mood-city.png",
+    liveUrl: "https://mood-city.vercel.app/",
+  },
+  {
+    n: "04",
+    title: "TT Online Konbini",
+    kind: "JAPANESE E-COMMERCE",
+    desc: "A Japanese online convenience store with product search, category browsing, deals, favorites, cart interactions, delivery details, and responsive shopping flows.",
+    tags: ["Next.js", "React", "TypeScript", "E-commerce"],
+    image: "/projects/tt-konbini.png",
+    liveUrl: "https://tt-konbini.vercel.app/",
+  },
 ];
 
+// website logo
 function Logo() {
-  return <a className="logo" href="#home" aria-label="Yoon Ei Phyo home"><span>YEP</span><b aria-hidden="true">✿</b><small>Yoon Ei Phyo</small></a>;
+  return (
+    <a className="logo" href="#home" aria-label="Yoon Ei Phyo home">
+      <span>YEP</span>
+      <b aria-hidden="true">✿</b>
+      <small>Yoon Ei Phyo</small>
+    </a>
+  );
 }
 
+// navigation bar and mobile menu
 function Navbar() {
-  const [open,setOpen]=useState(false); const [active,setActive]=useState("Home");
-  useEffect(()=>{ const onScroll=()=>{ let current="Home"; for(const item of navItems){ const el=document.getElementById(item.toLowerCase()); if(el && el.getBoundingClientRect().top<180) current=item; } setActive(current); }; window.addEventListener("scroll",onScroll,{passive:true}); onScroll(); return()=>window.removeEventListener("scroll",onScroll); },[]);
-  return <header className="nav-wrap"><nav className="navbar" aria-label="Primary navigation"><Logo/><button className="menu-btn" onClick={()=>setOpen(!open)} aria-label="Toggle menu" aria-expanded={open}>{open?<X/>:<Menu/>}</button><div className={`nav-links ${open?"open":""}`}>{navItems.map(item=><a key={item} href={`#${item.toLowerCase()}`} className={active===item?"active":""} onClick={()=>setOpen(false)}>{item}</a>)}<a className="cv-btn" href="/Yoon-Ei-Phyo-CV.pdf" download><Download size={17}/> Download CV</a></div></nav></header>;
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("Home");
+  // change the active menu when scrolling
+  useEffect(() => {
+    const onScroll = () => {
+      let current = "Home";
+      for (const item of navItems) {
+        const el = document.getElementById(item.toLowerCase());
+        if (el && el.getBoundingClientRect().top < 180) current = item;
+      }
+      setActive(current);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <header className="nav-wrap">
+      <nav className="navbar" aria-label="Primary navigation">
+        <Logo />
+        <button
+          className="menu-btn"
+          onClick={() => setOpen(!open)}
+          aria-label="Toggle menu"
+          aria-expanded={open}
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+        <div className={`nav-links ${open ? "open" : ""}`}>
+          {navItems.map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className={active === item ? "active" : ""}
+              onClick={() => setOpen(false)}
+            >
+              {item}
+            </a>
+          ))}
+          <a className="cv-btn" href="/Yoon-Ei-Phyo-CV.pdf" download>
+            <Download size={17} /> Download CV
+          </a>
+        </div>
+      </nav>
+    </header>
+  );
 }
 
-function SectionTitle({eyebrow,title,light=false}:{eyebrow?:string,title:string,light?:boolean}) { return <div className={`section-title ${light?"light":""}`}>{eyebrow&&<span>{eyebrow}</span>}<h2>{title}</h2><i/></div>; }
+// title used at the top of each section
+function SectionTitle({
+  eyebrow,
+  title,
+  light = false,
+}: {
+  eyebrow?: string;
+  title: string;
+  light?: boolean;
+}) {
+  return (
+    <div className={`section-title ${light ? "light" : ""}`}>
+      {eyebrow && <span>{eyebrow}</span>}
+      <h2>{title}</h2>
+      <i />
+    </div>
+  );
+}
 
-function Hero() { return <section id="home" className="hero"><div className="hero-grid" aria-hidden="true"/><div className="hero-inner"><div className="hero-copy reveal"><div className="eyebrow">HELLO, I’M <b>01</b></div><h1>YOON <span>EI</span> PHYO</h1><div className="name-rule"><i/><small>PORTFOLIO · 2026</small></div><h2>BACKEND / FULL-STACK<br/>DEVELOPER</h2><p className="subline"><MapPin size={20} fill="currentColor"/> OKINAWA, JAPAN</p><p className="intro">I’m a Myanmar student studying Web Programming in Okinawa. I enjoy building useful web applications, solving real problems with code, and continuously learning new technologies. I’m currently strengthening my skills in <strong>Java, SQL, React, Next.js, TypeScript, and Spring Boot</strong>—with the goal of creating readable, maintainable systems.</p><div className="hero-actions"><a className="primary-btn" href="#projects">View Projects <ArrowRight size={18}/></a><a className="secondary-btn" href="#contact">Contact Me <Mail size={17}/></a></div><div className="available"><i/> Open to junior developer opportunities in Japan</div></div><div className="hero-visual reveal"><div className="sun"/><div className="torii" aria-hidden="true"><i/><b/><span/><span/></div><div className="hero-stamp" aria-hidden="true"><b>沖縄</b><span>LEARN<br/>BUILD<br/>GROW</span></div><div className="photo-frame"><img src="/yoon-ei-phyo.jpeg" alt="Yoon Ei Phyo smiling by the Okinawa coast"/></div><div className="photo-label"><span>WEB PROGRAMMING STUDENT</span><strong>BUILDING IN OKINAWA</strong></div><div className="code-chip"><Code2/><span>BUILDING WITH<br/><b>CARE &amp; CURIOSITY</b></span></div><div className="hibiscus" aria-hidden="true">✿</div></div></div><div className="wave-strip" aria-hidden="true"/></section>; }
+// first section with my introduction and photo
+function Hero() {
+  return (
+    <section id="home" className="hero">
+      <div className="hero-grid" aria-hidden="true" />
+      <div className="hero-inner">
+        <div className="hero-copy reveal">
+          <div className="eyebrow">
+            HELLO, I’M <b>01</b>
+          </div>
+          <h1>
+            YOON <span>EI</span> PHYO
+          </h1>
+          <div className="name-rule">
+            <i />
+            <small>PORTFOLIO · 2026</small>
+          </div>
+          <h2>
+            BACKEND / FULL-STACK
+            <br />
+            DEVELOPER
+          </h2>
+          <p className="subline">
+            <MapPin size={20} fill="currentColor" /> OKINAWA, JAPAN
+          </p>
+          <p className="intro">
+            I’m a Myanmar student studying Web Programming in Okinawa. I enjoy
+            building useful web applications, solving real problems with code,
+            and continuously learning new technologies. I’m currently
+            strengthening my skills in{" "}
+            <strong>
+              Java, SQL, React, Next.js, TypeScript, and Spring Boot
+            </strong>
+            —with the goal of creating readable, maintainable systems.
+          </p>
+          <div className="hero-actions">
+            <a className="primary-btn" href="#projects">
+              View Projects <ArrowRight size={18} />
+            </a>
+            <a className="secondary-btn" href="#contact">
+              Contact Me <Mail size={17} />
+            </a>
+          </div>
+          <div className="available">
+            <i /> Open to junior developer opportunities in Japan
+          </div>
+        </div>
+        <div className="hero-visual reveal">
+          <div className="sun" />
+          <div className="torii" aria-hidden="true">
+            <i />
+            <b />
+            <span />
+            <span />
+          </div>
+          <div className="hero-stamp" aria-hidden="true">
+            <b>沖縄</b>
+            <span>
+              LEARN
+              <br />
+              BUILD
+              <br />
+              GROW
+            </span>
+          </div>
+          <div className="photo-frame">
+            <img
+              src="/yoon-ei-phyo.jpeg"
+              alt="Yoon Ei Phyo smiling by the Okinawa coast"
+            />
+          </div>
+          <div className="photo-label">
+            <span>WEB PROGRAMMING STUDENT</span>
+            <strong>BUILDING IN OKINAWA</strong>
+          </div>
+          <div className="code-chip">
+            <Code2 />
+            <span>
+              BUILDING WITH
+              <br />
+              <b>CARE &amp; CURIOSITY</b>
+            </span>
+          </div>
+          <div className="hibiscus" aria-hidden="true">
+            ✿
+          </div>
+        </div>
+      </div>
+      <div className="wave-strip" aria-hidden="true" />
+    </section>
+  );
+}
 
-function About(){const cards=[{icon:<GraduationCap/>,label:"EDUCATION",title:"専門学校 神村学園",text:"Web Programming Course"},{icon:<MapPin/>,label:"LOCATION",title:"Okinawa, Japan",text:"Living and learning in Japan"},{icon:<Target/>,label:"CAREER GOAL",title:"Backend / Full-Stack",text:"Software Engineer"}]; const strengths=[{icon:<Mountain/>,title:"Persistence",text:"I don’t give up easily and keep improving until I achieve my goal."},{icon:<Users/>,title:"Think from Others’ Perspective",text:"I try to understand users and teammates so I can create better solutions."},{icon:<TrendingUp/>,title:"Continuous Improvement",text:"I steadily learn, practice, and improve every day."}]; return <section id="about" className="section about"><div className="container"><SectionTitle eyebrow="01 — MY STORY" title="About Me"/><div className="about-grid">{cards.map(c=><article className="info-card reveal" key={c.label}><div className="info-icon">{c.icon}</div><div><span>{c.label}</span><h3>{c.title}</h3><p>{c.text}</p></div></article>)}</div><div className="strength-panel reveal"><div className="panel-kicker"><Heart size={16} fill="currentColor"/> MY STRENGTHS</div><div className="strength-grid">{strengths.map((s,i)=><article key={s.title}><div className="strength-num">0{i+1}</div><div className="strength-icon">{s.icon}</div><h3>{s.title}</h3><p>{s.text}</p></article>)}</div></div></div></section>}
+// my education, location, goal and strengths
+function About() {
+  const cards = [
+    {
+      icon: <GraduationCap />,
+      label: "EDUCATION",
+      title: "専門学校 神村学園",
+      text: "Web Programming Course",
+    },
+    {
+      icon: <MapPin />,
+      label: "LOCATION",
+      title: "Okinawa, Japan",
+      text: "Living and learning in Japan",
+    },
+    {
+      icon: <Target />,
+      label: "CAREER GOAL",
+      title: "Backend / Full-Stack",
+      text: "Software Engineer",
+    },
+  ];
+  const strengths = [
+    {
+      icon: <Mountain />,
+      title: "Persistence",
+      text: "I don’t give up easily and keep improving until I achieve my goal.",
+    },
+    {
+      icon: <Users />,
+      title: "Think from Others’ Perspective",
+      text: "I try to understand users and teammates so I can create better solutions.",
+    },
+    {
+      icon: <TrendingUp />,
+      title: "Continuous Improvement",
+      text: "I steadily learn, practice, and improve every day.",
+    },
+  ];
+  return (
+    <section id="about" className="section about">
+      <div className="container">
+        <SectionTitle eyebrow="01 — MY STORY" title="About Me" />
+        <div className="about-grid">
+          {cards.map((c) => (
+            <article className="info-card reveal" key={c.label}>
+              <div className="info-icon">{c.icon}</div>
+              <div>
+                <span>{c.label}</span>
+                <h3>{c.title}</h3>
+                <p>{c.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div className="strength-panel reveal">
+          <div className="panel-kicker">
+            <Heart size={16} fill="currentColor" /> MY STRENGTHS
+          </div>
+          <div className="strength-grid">
+            {strengths.map((s, i) => (
+              <article key={s.title}>
+                <div className="strength-num">0{i + 1}</div>
+                <div className="strength-icon">{s.icon}</div>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-function Skills(){return <section id="skills" className="section skills"><div className="container"><SectionTitle eyebrow="02 — TOOLKIT" title="Skills & Technologies"/><p className="section-lead">A growing toolkit grounded in core web fundamentals and practical application development.</p><div className="skills-grid">{skills.map(([name,mark,cls])=><div className="skill-card reveal" key={name}><div className={`tech-mark ${cls}`}>{mark}</div><strong>{name}</strong>{name.includes("Learning")&&<span>IN PROGRESS</span>}</div>)}</div></div></section>}
+// programming skills and tools
+function Skills() {
+  return (
+    <section id="skills" className="section skills">
+      <div className="container">
+        <SectionTitle eyebrow="02 — TOOLKIT" title="Skills & Technologies" />
+        <p className="section-lead">
+          A growing toolkit grounded in core web fundamentals and practical
+          application development.
+        </p>
+        <div className="skills-grid">
+          {skills.map(([name, mark, cls]) => (
+            <div className="skill-card reveal" key={name}>
+              <div className={`tech-mark ${cls}`}>{mark}</div>
+              <strong>{name}</strong>
+              {name.includes("Learning") && <span>IN PROGRESS</span>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
-function ProjectVisual({type}:{type:string}){if(type==="terminal")return <div className="project-visual terminal"><div>● ● ●</div><code>&gt; java BankingApp<br/>✓ Account created<br/>Balance: ¥120,000<br/>&gt; transfer --amount 5000<br/><b>Transfer successful.</b></code></div>; if(type==="mood")return <div className="project-visual mood"><span>How are you feeling today?</span><div>☀ Calm　☁ Cozy　★ Focus</div></div>; if(type==="recipe")return <div className="project-visual recipe"><div className="plate">TT</div><b>オンラインコンビニ</b><span>毎日の便利を、もっと身近に。</span></div>; return <div className="project-visual shop"><b>DREAMING</b><span>Simple pieces.<br/>Thoughtful style.</span><div className="bags">▱　▰　▱</div></div>}
+// project cards with live demo and GitHub links
+function Projects() {
+  return (
+    <section id="projects" className="section projects">
+      <div className="container">
+        <SectionTitle eyebrow="03 — SELECTED WORK" title="Featured Projects" />
+        <div className="projects-grid">
+          {projects.map((p) => {
+            const projectUrl = p.liveUrl || p.githubUrl;
 
-function Projects(){return <section id="projects" className="section projects"><div className="container"><SectionTitle eyebrow="03 — SELECTED WORK" title="Featured Projects"/><div className="projects-grid">{projects.map(p=><article className="project-card reveal" key={p.title}><div className="project-image"><img src={p.image} alt={`${p.title} project interface preview`}/><span className="project-no">{p.n}</span></div><div className="project-body"><span className="project-kind">{p.kind}</span><h3>{p.title}</h3><p>{p.desc}</p><div className="tags">{p.tags.map(t=><span key={t}>{t}</span>)}</div><div className="project-actions">{p.githubUrl&&<a href={p.githubUrl} target="_blank" rel="noreferrer"><Github size={16}/> GitHub</a>}{p.liveUrl&&<a href={p.liveUrl} target="_blank" rel="noreferrer" aria-label={`${p.title} live demo`}><ExternalLink size={16}/> Live Demo</a>}</div></div></article>)}</div><article className="learning-card reveal"><div className="learning-icon"><Rocket/></div><div><span>CURRENTLY LEARNING</span><h3>Spring Boot Product API</h3><p>Building REST APIs for product CRUD operations, ResponseEntity, Pageable, CORS, database integration, and clean application structure.</p></div><div className="tags">{["Java","Spring Boot","REST API","MySQL","JPA"].map(t=><span key={t}>{t}</span>)}</div></article></div></section>}
+            return <article className="project-card reveal" key={p.title}>
+              <a
+                className="project-image"
+                href={projectUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${p.title}`}
+              >
+                <img
+                  src={p.image}
+                  alt={`${p.title} project interface preview`}
+                />
+                <span className="project-no">{p.n}</span>
+              </a>
+              <div className="project-body">
+                <span className="project-kind">{p.kind}</span>
+                <h3>
+                  <a href={projectUrl} target="_blank" rel="noreferrer">
+                    {p.title}
+                  </a>
+                </h3>
+                <p>{p.desc}</p>
+                <div className="tags">
+                  {p.tags.map((t) => (
+                    <span key={t}>{t}</span>
+                  ))}
+                </div>
+                <div className="project-actions">
+                  {p.githubUrl && (
+                    <a href={p.githubUrl} target="_blank" rel="noreferrer">
+                      <Github size={16} /> GitHub
+                    </a>
+                  )}
+                  {p.liveUrl && (
+                    <a
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${p.title} live demo`}
+                    >
+                      <ExternalLink size={16} /> Live Demo
+                    </a>
+                  )}
+                </div>
+              </div>
+            </article>;
+          })}
+        </div>
+        <article className="learning-card reveal">
+          <div className="learning-icon">
+            <Rocket />
+          </div>
+          <div>
+            <span>CURRENTLY LEARNING</span>
+            <h3>Spring Boot Product API</h3>
+            <p>
+              Building REST APIs for product CRUD operations, ResponseEntity,
+              Pageable, CORS, database integration, and clean application
+              structure.
+            </p>
+          </div>
+          <div className="tags">
+            {["Java", "Spring Boot", "REST API", "MySQL", "JPA"].map((t) => (
+              <span key={t}>{t}</span>
+            ))}
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
 
-function Certificates(){const certs=[{mark:"N2",title:"JLPT N2",sub:"Japanese Language Proficiency Test",icon:<BookOpen/>},{mark:"Java",title:"Java SE Bronze",sub:"Oracle Certified Java qualification",icon:<Code2/>},{mark:"Tech+",title:"CompTIA Tech+",sub:"IT fundamentals certification",icon:<BriefcaseBusiness/>}]; return <section id="certificates" className="section certificates"><div className="container"><SectionTitle eyebrow="04 — CONTINUOUS LEARNING" title="Learning Journey & Certificates"/><div className="cert-grid">{certs.map(c=><article className="cert-card reveal" key={c.title}><div className="cert-mark">{c.icon}<b>{c.mark}</b></div><div><span>CERTIFICATION</span><h3>{c.title}</h3><p>{c.sub}</p></div><Check className="cert-check"/></article>)}</div><div className="career reveal"><div><SectionTitle eyebrow="CAREER DIRECTION" title="What I’m Working Toward"/><p>My goal is to grow from implementation into a software engineer who can understand requirements, design systems, develop reliable applications, and support them after release. I especially want to strengthen my backend skills with Java and Spring Boot while continuing to develop my frontend knowledge.</p></div><div className="progression">{["Requirements","Design","Development","Testing","Maintenance"].map((x,i)=><div key={x}><span>{i+1}</span><b>{x}</b></div>)}</div></div></div></section>}
+// certificates and my future career plan
+function Certificates() {
+  const certs = [
+    {
+      mark: "N2",
+      title: "JLPT N2",
+      sub: "Japanese Language Proficiency Test",
+      icon: <BookOpen />,
+    },
+    {
+      mark: "Java",
+      title: "Java SE Bronze",
+      sub: "Oracle Certified Java qualification",
+      icon: <Code2 />,
+    },
+    {
+      mark: "Tech+",
+      title: "CompTIA Tech+",
+      sub: "IT fundamentals certification",
+      icon: <BriefcaseBusiness />,
+    },
+  ];
+  return (
+    <section id="certificates" className="section certificates">
+      <div className="container">
+        <SectionTitle
+          eyebrow="04 — CONTINUOUS LEARNING"
+          title="Learning Journey & Certificates"
+        />
+        <div className="cert-grid">
+          {certs.map((c) => (
+            <article className="cert-card reveal" key={c.title}>
+              <div className="cert-mark">
+                {c.icon}
+                <b>{c.mark}</b>
+              </div>
+              <div>
+                <span>CERTIFICATION</span>
+                <h3>{c.title}</h3>
+                <p>{c.sub}</p>
+              </div>
+              <Check className="cert-check" />
+            </article>
+          ))}
+        </div>
+        <div className="career reveal">
+          <div>
+            <SectionTitle
+              eyebrow="CAREER DIRECTION"
+              title="What I’m Working Toward"
+            />
+            <p>
+              My goal is to grow from implementation into a software engineer
+              who can understand requirements, design systems, develop reliable
+              applications, and support them after release. I especially want to
+              strengthen my backend skills with Java and Spring Boot while
+              continuing to develop my frontend knowledge.
+            </p>
+          </div>
+          <div className="progression">
+            {[
+              "Requirements",
+              "Design",
+              "Development",
+              "Testing",
+              "Maintenance",
+            ].map((x, i) => (
+              <div key={x}>
+                <span>{i + 1}</span>
+                <b>{x}</b>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 
-function Contact(){return <><section id="contact" className="contact"><div className="contact-deco">沖</div><div className="container contact-inner"><div><span className="contact-kicker">LET’S CONNECT</span><h2>Let’s build something<br/><em>meaningful together.</em></h2><p>I’m always open to new opportunities, collaborations, and interesting ideas.</p></div><div className="contact-card"><a href="mailto:w25019@osfl.ac.jp"><Mail/><span><small>EMAIL</small>w25019@osfl.ac.jp</span><ArrowRight/></a><a href="https://github.com/w25019" target="_blank" rel="noreferrer"><Github/><span><small>GITHUB</small>github.com/w25019</span><ArrowRight/></a><div><MapPin/><span><small>LOCATION</small>Okinawa, Japan</span></div><div className="socials"><a href="https://github.com/w25019" aria-label="GitHub"><Github/></a><a href="#" aria-label="LinkedIn profile not provided"><Linkedin/></a><a href="mailto:w25019@osfl.ac.jp" aria-label="Email Yoon Ei Phyo"><Mail/></a></div></div></div><div className="contact-wave"/></section><footer><div className="container"><Logo/><p>© 2026 Yoon Ei Phyo. All rights reserved.</p><span>Designed with care in Okinawa</span></div></footer></>}
+// contact information and footer
+function Contact() {
+  return (
+    <>
+      <section id="contact" className="contact">
+        <div className="contact-deco">沖</div>
+        <div className="container contact-inner">
+          <div>
+            <span className="contact-kicker">LET’S CONNECT</span>
+            <h2>
+              Let’s build something
+              <br />
+              <em>meaningful together.</em>
+            </h2>
+            <p>
+              I’m always open to new opportunities, collaborations, and
+              interesting ideas.
+            </p>
+          </div>
+          <div className="contact-card">
+            <a href="mailto:w25019@osfl.ac.jp">
+              <Mail />
+              <span>
+                <small>EMAIL</small>w25019@osfl.ac.jp
+              </span>
+              <ArrowRight />
+            </a>
+            <a
+              href="https://github.com/w25019"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Github />
+              <span>
+                <small>GITHUB</small>github.com/w25019
+              </span>
+              <ArrowRight />
+            </a>
+            <div>
+              <MapPin />
+              <span>
+                <small>LOCATION</small>Okinawa, Japan
+              </span>
+            </div>
+            <div className="socials">
+              <a href="https://github.com/w25019" aria-label="GitHub">
+                <Github />
+              </a>
+              <a
+                href="mailto:w25019@osfl.ac.jp"
+                aria-label="Email Yoon Ei Phyo"
+              >
+                <Mail />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="contact-wave" />
+      </section>
+      <footer>
+        <div className="container">
+          <Logo />
+          <p>© 2026 Yoon Ei Phyo. All rights reserved.</p>
+          <span>Designed with care in Okinawa</span>
+        </div>
+      </footer>
+    </>
+  );
+}
 
-export default function Home(){const[top,setTop]=useState(false); useEffect(()=>{const obs=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add("visible")),{threshold:.08}); document.querySelectorAll(".reveal").forEach(el=>obs.observe(el)); const s=()=>setTop(window.scrollY>600); window.addEventListener("scroll",s,{passive:true}); return()=>{obs.disconnect();window.removeEventListener("scroll",s)}} ,[]); return <><Navbar/><main><Hero/><About/><Skills/><Projects/><Certificates/><Contact/></main><button className={`back-top ${top?"show":""}`} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})} aria-label="Back to top"><ChevronUp/></button></>}
+// show sections when scrolling and control the back to top button
+export default function Home() {
+  const [top, setTop] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (es) =>
+        es.forEach(
+          (e) => e.isIntersecting && e.target.classList.add("visible"),
+        ),
+      { threshold: 0.08 },
+    );
+    document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    const s = () => setTop(window.scrollY > 600);
+    window.addEventListener("scroll", s, { passive: true });
+    return () => {
+      obs.disconnect();
+      window.removeEventListener("scroll", s);
+    };
+  }, []);
+  return (
+    <>
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Certificates />
+        <Contact />
+      </main>
+      <button
+        className={`back-top ${top ? "show" : ""}`}
+        onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        aria-label="Back to top"
+      >
+        <ChevronUp />
+      </button>
+    </>
+  );
+}
